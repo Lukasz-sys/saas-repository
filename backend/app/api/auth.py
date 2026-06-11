@@ -71,6 +71,12 @@ def login(
             detail="Invalid email or password"
         )
 
+    if not existing_user.is_verified:
+        raise HTTPException(
+        status_code=403,
+        detail="Email not verified"
+    )
+
     access_token = create_access_token(
         data={
             "sub": str(existing_user.id)
