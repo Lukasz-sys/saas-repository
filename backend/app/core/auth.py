@@ -10,7 +10,7 @@ from app.models.user import User
 
 
 
-SECRET_KEY = "SUPER_SECRET_KEY_CHANGE_ME"
+from app.core.config import SECRET_KEY
 ALGORITHM = "HS256"
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/login")

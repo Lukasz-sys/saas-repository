@@ -12,6 +12,7 @@ from app.schemas.user import UserCreate, UserLogin
 
 from app.core.security import hash_password, verify_password
 from app.core.auth import create_access_token, get_current_user
+import secrets
 
 router = APIRouter()
 
@@ -32,18 +33,21 @@ def register(
             detail="Email already exists"
         )
 
+    verification_token = secrets.token_urlsafe(32)
     new_user = User(
-        email=user.email,
-        password_hash=hash_password(user.password)
-    )
+    email=user.email,
+    password_hash=hash_password(user.password),
+    verification_token=verification_token
+)
 
     db.add(new_user)
 
     db.commit()
 
     return {
-        "message": "User created"
-    }
+    "message": "User created",
+    "verification_token": verification_token
+}
     
     
 @router.post("/login")
@@ -88,3 +92,27 @@ def get_me(
         "is_verified": current_user.is_verified
     }
     
+    
+@router.get("/verify-email")
+def verify_email(
+    token: str,
+    db: Session = Depends(get_db)
+):
+    user = db.query(User).filter(
+        User.verification_token == token
+    ).first()
+
+    if not user:
+        raise HTTPException(
+            status_code=400,
+            detail="Invalid verification token"
+        )
+
+    user.is_verified = True
+    user.verification_token = None
+
+    db.commit()
+
+    return {
+        "message": "Email verified"
+    }
