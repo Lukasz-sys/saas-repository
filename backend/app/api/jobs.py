@@ -7,6 +7,7 @@ from app.models.user import User
 from app.schemas.job import JobCreate
 from app.core.auth import get_current_user
 from fastapi import APIRouter, Depends, HTTPException
+from app.tasks.jobs import run_job
 
 router = APIRouter(prefix="/jobs", tags=["Jobs"])
 
@@ -26,6 +27,7 @@ def create_job(
     db.add(new_job)
     db.commit()
     db.refresh(new_job)
+    run_job.delay(new_job.id)
 
     return new_job
 
