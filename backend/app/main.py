@@ -2,7 +2,10 @@ from fastapi import FastAPI
 
 from app.database.connection import engine, Base
 from app.models.user import User
+from app.models.job import Job
 from app.api.auth import router as auth_router
+from fastapi import FastAPI
+
 
 app = FastAPI(title="SaaS Platform API")
 
