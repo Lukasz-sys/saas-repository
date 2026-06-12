@@ -13,6 +13,7 @@ from app.schemas.user import UserCreate, UserLogin
 from app.core.security import hash_password, verify_password
 from app.core.auth import create_access_token, get_current_user
 import secrets
+from app.services.email_service import send_verification_email
 
 router = APIRouter()
 
@@ -43,10 +44,11 @@ def register(
     db.add(new_user)
 
     db.commit()
+    
+    send_verification_email(user.email, verification_token)
 
     return {
-    "message": "User created",
-    "verification_token": verification_token
+    "message": "User created. Check your email."
 }
     
     
