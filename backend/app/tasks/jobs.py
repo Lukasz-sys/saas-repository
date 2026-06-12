@@ -1,9 +1,12 @@
 import time
+from unittest import result
+
 
 from app.tasks.celery_app import celery_app
 from app.database.connection import SessionLocal
 from app.models.user import User
 from app.models.job import Job
+from app.engines.engine_1 import run_engine
 
 @celery_app.task(name="app.tasks.jobs.run_job")
 def run_job(job_id: int):
@@ -18,10 +21,11 @@ def run_job(job_id: int):
         job.status = "RUNNING"
         db.commit()
 
-        time.sleep(10)
+        result = run_engine(job_id)
 
+        job.result = result
         job.status = "COMPLETED"
-        job.result = f"Result for job {job_id}"
+
         db.commit()
 
     finally:

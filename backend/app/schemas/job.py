@@ -3,6 +3,7 @@ from pydantic import BaseModel
 
 class JobCreate(BaseModel):
     engine_type: str
+    input_data: str
 
 
 class JobResponse(BaseModel):

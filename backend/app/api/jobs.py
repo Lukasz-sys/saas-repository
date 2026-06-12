@@ -19,10 +19,11 @@ def create_job(
     current_user: User = Depends(get_current_user)
 ):
     new_job = Job(
-        user_id=current_user.id,
-        engine_type=job.engine_type,
-        status="PENDING"
-    )
+    user_id=current_user.id,
+    engine_type=job.engine_type,
+    input_data=job.input_data,
+    status="PENDING"
+)
 
     db.add(new_job)
     db.commit()

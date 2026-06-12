@@ -31,6 +31,11 @@ class Job(Base):
         String,
         nullable=False
     )
+    
+    input_data = Column(
+    Text,
+    nullable=True
+    )
 
     status = Column(
         String,
@@ -46,3 +51,4 @@ class Job(Base):
         DateTime,
         default=datetime.utcnow
     )
+  
