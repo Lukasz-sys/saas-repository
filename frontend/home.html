@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+
+<html lang="pl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Maria System - Zaawansowana Analiza Statystyczna</title>
+
+    <!-- Pobranie biblioteki Tailwind CSS dla nowoczesnego wyglądu -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Stylowanie strony zewnętrzne -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Skrypt JavaScript do obsługi modali logowania i rejestracji -->
+    <script defer src="skryptJS.js"></script>
+
+</head>
+
+<body class="bg-[#0B0F19] text-[#9CA3AF] font-sans min-h-screen flex flex-col justify-between">
+
+
+
+    <!-- 1. GÓRNY PASEK (HEADER) -->
+
+    <header class="border-b border-[#1F2937] bg-[#0B0F19]/80 backdrop-blur sticky top-0 z-50">
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+
+            <!-- Logo -->
+
+            <div class="flex items-center gap-2">
+
+                <span class="text-white font-bold text-xl tracking-wider">MARIA<span class="text-[#10B981]">SYSTEM</span></span>
+
+            </div>
+
+            <!-- Przyciski Logowania / Rejestracji -->
+
+            <div class="flex items-center gap-4">
+
+                <span id="userEmail" class="hidden text-sm text-[#10B981]"></span>
+
+                <button id="loginBtn" class="text-sm font-medium hover:text-white transition-colors">Zaloguj się</button>
+
+                <button id="logoutBtn" class="hidden text-sm font-medium hover:text-white transition-colors">Wyloguj</button>
+
+                <button id="registerBtn" class="bg-[#10B981] hover:bg-[#059669] text-[#0B0F19] font-semibold text-sm px-4 py-2 rounded-lg transition-all shadow-lg shadow-[#10B981]/10">
+
+                    Załóż darmowe konto
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- GŁÓWNA ZAWARTOŚĆ STRONY -->
+
+    <main class="flex-grow">
+
+        
+
+        <!-- 2. GŁÓWNA SEKCJA UDERZENIOWA (HERO) -->
+
+        <section class="max-w-4xl mx-auto text-center pt-20 pb-16 px-4">
+
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-white tracking-tight mb-6">
+
+                Zaawansowana Analiza Statystyczna <br class="hidden sm:inline">
+
+                <span class="text-[#10B981]">Gier Liczbowych</span>
+
+            </h1>
+
+            <p class="text-lg max-w-2xl mx-auto mb-8 text-[#9CA3AF]">
+
+                Wprowadź parametry, uruchom silniki matematyczne i generuj układy oparte na czystej statystyce. Bezpiecznie, szybko i bez ściemy.
+
+            </p>
+
+            <button data-open-engine="engine_1" class="bg-[#1F2937] hover:bg-[#2D3748] text-white font-medium px-6 py-3 rounded-lg border border-[#374151] transition-all">
+
+                Wypróbuj Silnik 1 za darmo
+
+            </button>
+
+        </section>
+
+
+
+        <!-- 3. SEKCJA: WYBÓR SILNIKA (TRZY KAFELKI) -->
+
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                
+
+                <!-- Kafel Silnika 1 (Darmowy) -->
+
+                <div class="bg-[#1F2937] border border-[#374151] rounded-xl p-6 flex flex-col justify-between hover:border-[#10B981]/50 transition-all group">
+
+                    <div>
+
+                        <div class="flex justify-between items-start mb-4">
+
+                            <h3 class="text-xl font-bold text-white group-hover:text-[#10B981] transition-colors">Silnik Alfa</h3>
+
+                            <span class="bg-[#10B981]/10 text-[#10B981] text-xs font-semibold px-2 py-1 rounded">Darmowy</span>
+
+                        </div>
+
+                        <p class="text-sm leading-relaxed">Podstawowa analiza kombinacji oraz rozkładu liczb. Dostępny dla każdego zarejestrowanego użytkownika bez opłat.</p>
+
+                    </div>
+
+                    <button data-open-engine="engine_1" class="mt-8 w-full bg-[#374151] hover:bg-[#4B5563] text-white text-sm font-semibold py-2.5 rounded-lg transition-colors">
+
+                        Uruchom silnik
+
+                    </button>
+
+                </div>
+
+
+
+                <!-- Kafel Silnika 2 (Premium) -->
+
+                <div class="bg-[#1F2937] border border-[#374151] rounded-xl p-6 flex flex-col justify-between opacity-85 relative overflow-hidden">
+
+                    <div>
+
+                        <div class="flex justify-between items-start mb-4">
+
+                            <h3 class="text-xl font-bold text-white flex items-center gap-2">
+
+                                Silnik Beta 
+
+                                <svg class="w-4 h-4 text-[#10B981]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+
+                            </h3>
+
+                            <span class="bg-amber-500/10 text-amber-500 text-xs font-semibold px-2 py-1 rounded">Premium</span>
+
+                        </div>
+
+                        <p class="text-sm leading-relaxed">Wyższy poziom filtrowania i eliminacji układów o niskim prawdopodobieństwie na podstawie historii losowań.</p>
+
+                    </div>
+
+                    <button data-open-engine="engine_2" class="mt-8 w-full bg-[#10B981]/10 text-[#10B981] hover:bg-[#10B981]/20 text-sm font-semibold py-2.5 rounded-lg transition-colors">
+
+                        Uruchom silnik
+
+                    </button>
+
+                </div>
+
+
+
+                <!-- Kafel Silnika 3 (Premium) -->
+
+                <div class="bg-[#1F2937] border border-[#374151] rounded-xl p-6 flex flex-col justify-between opacity-85 relative overflow-hidden">
+
+                    <div>
+
+                        <div class="flex justify-between items-start mb-4">
+
+                            <h3 class="text-xl font-bold text-white flex items-center gap-2">
+
+                                Silnik Gamma
+
+                                <svg class="w-4 h-4 text-[#10B981]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+
+                            </h3>
+
+                            <span class="bg-amber-500/10 text-amber-500 text-xs font-semibold px-2 py-1 rounded">Premium</span>
+
+                        </div>
+
+                        <p class="text-sm leading-relaxed">Najgłębsza analiza z wykorzystaniem zaawansowanych algorytmów wagowych. Maksymalna moc obliczeniowa systemu.</p>
+
+                    </div>
+
+                    <button data-open-engine="engine_3" class="mt-8 w-full bg-[#10B981]/10 text-[#10B981] hover:bg-[#10B981]/20 text-sm font-semibold py-2.5 rounded-lg transition-colors">
+
+                        Uruchom silnik
+
+                    </button>
+
+                </div>
+
+
+
+            </div>
+
+        </section>
+
+
+
+
+        <!-- 4. PANEL UŻYTKOWNIKA: URUCHAMIANIE SILNIKÓW I HISTORIA -->
+        <section id="dashboardSection" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="bg-[#1F2937] border border-[#374151] rounded-xl p-6 lg:col-span-1">
+                    <h2 class="text-xl font-bold text-white mb-4">Uruchom analizę</h2>
+
+                    <form id="jobForm" class="space-y-4">
+                        <div>
+                            <label for="engineType" class="block text-sm mb-2">Silnik</label>
+                            <select id="engineType" class="form-control" required>
+                                <option value="engine_1">Silnik Alfa</option>
+                                <option value="engine_2">Silnik Beta</option>
+                                <option value="engine_3">Silnik Gamma</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="inputData" class="block text-sm mb-2">Dane wejściowe</label>
+                            <input id="inputData" class="form-control" type="number" placeholder="np. 25" required>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            Uruchom zadanie
+                        </button>
+                    </form>
+
+                    <p id="jobMessage" class="status-message"></p>
+                </div>
+
+                <div class="bg-[#1F2937] border border-[#374151] rounded-xl p-6 lg:col-span-2">
+                    <div class="flex items-center justify-between gap-4 mb-4">
+                        <h2 class="text-xl font-bold text-white">Historia zadań</h2>
+                        <button id="refreshJobsBtn" class="bg-[#374151] hover:bg-[#4B5563] text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors">
+                            Odśwież
+                        </button>
+                    </div>
+
+                    <div id="jobsList" class="space-y-3">
+                        <p class="text-sm text-[#6B7280]">Zaloguj się, aby zobaczyć swoje zadania.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. MIEJSCE NA REKLAMĘ NATYWNĄ (Z KLASĄ) -->
+
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+
+            <div class="bg-[#121824] border border-[#1F2937] rounded-xl p-4 text-center relative overflow-hidden">
+
+                <span class="absolute top-2 left-3 text-[10px] uppercase tracking-widest text-[#374151] font-semibold">Sponsor projektu</span>
+
+                <div class="py-6 text-sm text-[#4B5563]">
+
+                    Miejsce na estetyczny baner reklamowy partnera (wtopiony w tło, bez wyskakujących okienek)
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+    </main>
+
+
+
+    <!-- 6. STOPKA Z TARCZĄ PRAWNĄ (FOOTER) -->
+
+    <footer class="bg-[#0B0F19] border-t border-[#1F2937] py-8 text-xs text-center px-4">
+
+        <div class="max-w-4xl mx-auto space-y-3">
+
+            <p class="text-[#4B5563]">
+
+                &copy; 2026 Maria System. Wszelkie prawa zastrzeżone.
+
+            </p>
+
+            <p class="text-[#374151] leading-relaxed">
+
+                <strong>Ostrzeżenie prawne:</strong> Serwis Maria System nie jest grą hazardową ani nie pośredniczy w zawieraniu zakładów. Wszystkie prezentowane algorytmy i wyniki mają charakter wyłącznie analityczny, statystyczny i matematyczny. Pamiętaj, że statystyka nie gwarantuje wygranej.
+
+            </p>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- 7. WYSWIETLANIE MODALNEGO OKNA LOGOWANIA i REJESTRACJI -->
+    <!-- OVERLAY -->
+
+<div id="overlay" class="overlay">
+
+    <!-- LOGOWANIE -->
+
+    <div id="loginModal" class="modal">
+
+        <button class="close-btn">&times;</button>
+
+        <h2>Logowanie</h2>
+
+        <form id="loginForm">
+
+            <input
+                id="loginEmail"
+                type="email"
+                placeholder="Email"
+                autocomplete="email"
+                required
+            >
+
+            <input
+                id="loginPassword"
+                type="password"
+                placeholder="Hasło"
+                autocomplete="current-password"
+                required
+            >
+
+            <button type="submit" class="submit-btn">
+                Zaloguj się
+            </button>
+
+        </form>
+
+        <p id="loginMessage" class="status-message"></p>
+
+    </div>
+
+    <!-- REJESTRACJA -->
+
+    <div id="registerModal" class="modal">
+
+        <button class="close-btn">&times;</button>
+
+        <h2>Załóż darmowe konto</h2>
+
+        <form id="registerForm">
+
+            <input
+                id="registerName"
+                type="text"
+                placeholder="Nazwa użytkownika"
+                autocomplete="name"
+                required
+            >
+
+            <input
+                id="registerEmail"
+                type="email"
+                placeholder="Email"
+                autocomplete="email"
+                required
+            >
+
+            <input
+                id="registerPassword"
+                type="password"
+                placeholder="Hasło"
+                autocomplete="new-password"
+                required
+            >
+
+            <input
+                id="registerPasswordRepeat"
+                type="password"
+                placeholder="Powtórz hasło"
+                autocomplete="new-password"
+                required
+            >
+
+            <button type="submit" class="submit-btn">
+                Utwórz konto
+            </button>
+
+        </form>
+
+        <p id="registerMessage" class="status-message"></p>
+
+    </div>
+
+
+
+</body>
+
+</html>
