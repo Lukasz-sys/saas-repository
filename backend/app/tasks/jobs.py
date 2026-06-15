@@ -7,6 +7,7 @@ from app.models.job import Job
 
 from app.engines.engine_1 import run_engine as run_engine_1
 from app.engines.engine_2 import run_engine as run_engine_2
+from app.engines.engine_3 import run_engine as run_engine_3
 
 
 @celery_app.task(name="app.tasks.jobs.run_job")
@@ -28,6 +29,9 @@ def run_job(job_id: int):
 
         elif job.engine_type == "engine_2":
             result = run_engine_2(job.input_data)
+        
+        elif job.engine_type == "engine_3":
+            result = run_engine_3(job.input_data)
 
         else:
             job.status = "FAILED"
