@@ -41,6 +41,11 @@ const elements = {
     inputData: getElement("inputData"),
     jobsList: getElement("jobsList"),
     refreshJobsBtn: getElement("refreshJobsBtn"),
+
+    totalJobs: getElement("totalJobs"),
+    completedJobs: getElement("completedJobs"),
+    pendingJobs: getElement("pendingJobs"),
+    failedJobs: getElement("failedJobs"),
 };
 
 const closeButtons = document.querySelectorAll(".close-btn");
@@ -142,6 +147,12 @@ const getJobs = () => {
     return apiRequest("/jobs/");
 };
 
+const deleteJob = (jobId) => {
+    return apiRequest(`/jobs/${jobId}`, {
+        method: "DELETE",
+    });
+};
+
 // Modal
 
 const openModal = (modal) => {
@@ -211,11 +222,30 @@ const getStatusLabel = (status) => {
     return labels[status] || status;
 };
 
+const updateStatistics = (jobs) => {
+
+    elements.totalJobs.textContent = jobs.length;
+
+    elements.completedJobs.textContent =
+        jobs.filter(job => job.status === "COMPLETED").length;
+
+    elements.pendingJobs.textContent =
+        jobs.filter(job =>
+            job.status === "PENDING" ||
+            job.status === "RUNNING"
+        ).length;
+
+    elements.failedJobs.textContent =
+        jobs.filter(job => job.status === "FAILED").length;
+};
+
 const renderJobs = async () => {
     if (!getToken()) return;
 
     try {
         const jobs = await getJobs();
+
+        updateStatistics(jobs);
 
         if (!jobs.length) {
             elements.jobsList.innerHTML = `<p class="text-sm text-[#6B7280]">Nie masz jeszcze żadnych zadań.</p>`;
@@ -223,26 +253,87 @@ const renderJobs = async () => {
         }
 
         elements.jobsList.innerHTML = jobs
-            .slice()
-            .reverse()
-            .map((job) => `
-                <article class="job-card">
-                    <div class="job-card-header">
-                        <div>
-                            <h3 class="text-white font-semibold">Zadanie #${job.id}</h3>
-                            <p class="text-xs text-[#6B7280]">${job.engine_type} • dane: ${job.input_data ?? "-"}</p>
-                        </div>
-                        <span class="job-status ${job.status}">${getStatusLabel(job.status)}</span>
-                    </div>
+    .slice()
+    .reverse()
+    .map((job) => `
+        <article class="job-card">
+            <div class="job-card-header">
+                <div>
+                    <h3 class="text-white font-semibold">
+                        Zadanie #${job.id}
+                    </h3>
 
-                    <p class="text-sm">
-                        ${job.result ? job.result : "Wynik pojawi się po zakończeniu obliczeń."}
+                    <p class="text-xs text-[#6B7280]">
+                        ${job.engine_type} • dane: ${job.input_data ?? "-"}
                     </p>
-                </article>
-            `)
+                </div>
+
+                <div>
+                    <span class="job-status ${job.status}">
+                        ${getStatusLabel(job.status)}
+                    </span>
+
+                    <button
+                        data-delete-job="${job.id}"
+                        class="delete-job-btn"
+                    >
+                        Usuń
+                    </button>
+                </div>
+            </div>
+
+            <p class="text-sm">
+                ${
+                    job.result
+                        ? job.result
+                        : "Wynik pojawi się po zakończeniu obliczeń."
+                }
+            </p>
+        </article>
+    `)
             .join("");
     } catch (error) {
         setMessage(elements.jobMessage, error.message, "error");
+    }
+};
+const handleDeleteJobClick = async (event) => {
+
+    const button = event.target.closest("[data-delete-job]");
+
+    if (!button) {
+        return;
+    }
+
+    const jobId = button.dataset.deleteJob;
+
+    const confirmed = confirm(
+        `Czy usunąć zadanie #${jobId}?`
+    );
+
+    if (!confirmed) {
+        return;
+    }
+
+    try {
+
+        await deleteJob(jobId);
+
+        setMessage(
+            elements.jobMessage,
+            `Zadanie #${jobId} usunięte.`,
+            "success"
+        );
+
+        await renderJobs();
+
+    } catch (error) {
+
+        setMessage(
+            elements.jobMessage,
+            error.message,
+            "error"
+        );
+
     }
 };
 
@@ -360,6 +451,17 @@ elements.jobForm.addEventListener("submit", async (event) => {
 
 elements.refreshJobsBtn.addEventListener("click", renderJobs);
 
+elements.jobsList.addEventListener(
+    "click",
+    handleDeleteJobClick
+);
+
 // Start aplikacji
 
 updateAuthUI();
+
+setInterval(async () => {
+    if (getToken()) {
+        await renderJobs();
+    }
+}, 5000);

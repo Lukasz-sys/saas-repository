@@ -192,6 +192,10 @@
 
                     </div>
 
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+
+                    </div>
+
                     <button data-open-engine="engine_3" class="mt-8 w-full bg-[#10B981]/10 text-[#10B981] hover:bg-[#10B981]/20 text-sm font-semibold py-2.5 rounded-lg transition-colors">
 
                         Uruchom silnik
@@ -240,7 +244,31 @@
 
                 <div class="bg-[#1F2937] border border-[#374151] rounded-xl p-6 lg:col-span-2">
                     <div class="flex items-center justify-between gap-4 mb-4">
+
                         <h2 class="text-xl font-bold text-white">Historia zadań</h2>
+
+
+                        <div class="bg-[#121824] border border-[#374151] rounded-lg p-4">
+                        <p class="text-xs text-[#6B7280]">Wszystkie</p>
+                        <p id="totalJobs" class="text-2xl font-bold text-white">0</p>
+                    </div>
+
+                    <div class="bg-[#121824] border border-[#374151] rounded-lg p-4">
+                        <p class="text-xs text-[#6B7280]">Ukończone</p>
+                        <p id="completedJobs" class="text-2xl font-bold text-[#10B981]">0</p>
+                    </div>
+
+                    <div class="bg-[#121824] border border-[#374151] rounded-lg p-4">
+                        <p class="text-xs text-[#6B7280]">Oczekujące</p>
+                        <p id="pendingJobs" class="text-2xl font-bold text-amber-500">0</p>
+                    </div>
+
+                    <div class="bg-[#121824] border border-[#374151] rounded-lg p-4">
+                        <p class="text-xs text-[#6B7280]">Błędy</p>
+                        <p id="failedJobs" class="text-2xl font-bold text-red-500">0</p>
+                    </div>
+
+
                         <button id="refreshJobsBtn" class="bg-[#374151] hover:bg-[#4B5563] text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors">
                             Odśwież
                         </button>
